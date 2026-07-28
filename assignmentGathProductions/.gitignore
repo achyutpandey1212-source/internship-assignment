@@ -4,15 +4,23 @@ node_modules/
 # Build output
 dist/
 dist-ssr/
+build/
 
 # Environment variables
 .env
 .env.local
 .env.*.local
+.env.test
+.env.production
+.env.development
 
 # Logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # OS files
 .DS_Store
@@ -24,3 +32,12 @@ Thumbs.db
 
 # TypeScript cache
 *.tsbuildinfo
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Lock files at root level (prefer per-package lockfiles)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

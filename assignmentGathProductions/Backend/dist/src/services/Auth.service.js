@@ -9,7 +9,7 @@ export class AuthService {
         const { name, email, password } = signupDTO;
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
-            throw new Error('User with this email already exists');
+            throw new ApiError(409, 'User with this email already exists');
         }
         const hashedPassword = await hashPassword(password);
         const user = await UserModel.create({
@@ -40,11 +40,11 @@ export class AuthService {
         const { email, password } = loginDTO;
         const user = await UserModel.findOne({ email });
         if (!user) {
-            throw new Error('Invalid email or password');
+            throw new ApiError(401, 'Invalid email or password');
         }
         const isPasswordValid = await comparePassword(password, user.password);
         if (!isPasswordValid) {
-            throw new Error('Invalid email or password');
+            throw new ApiError(401, 'Invalid email or password');
         }
         const payload = {
             id: user._id.toString(),

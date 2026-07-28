@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { z, ZodError } from 'zod';
-import { ApiError } from '../utils/ApiError';
+import { ApiError } from '../utils/ApiError.js';
 
 export const validate = (schema: z.ZodSchema) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -9,7 +9,7 @@ export const validate = (schema: z.ZodSchema) => {
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        const message = error.errors[0]?.message || 'Validation failed';
+        const message = error.issues[0]?.message || 'Validation failed';
         return next(new ApiError(400, message));
       }
       return next(new ApiError(400, 'Validation failed'));

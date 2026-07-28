@@ -317,6 +317,52 @@ curl http://localhost:5000/
 
 ---
 
+## Deployment
+
+### Backend — Render
+
+1. Create a new **Web Service** on Render
+2. Connect your GitHub repository
+3. Configure:
+   - **Root Directory:** `Backend`
+   - **Build Command:** `npm install && npm run build`
+   - **Start Command:** `npm run start` (or configure for tsx: `npx tsx server.ts`)
+   - **Environment:** Node
+4. Add environment variables in Render dashboard:
+   - `PORT` — Render sets this automatically
+   - `MONGODB_URI` — your MongoDB Atlas connection string
+   - `JWT_ACCESS_SECRET` — generate a secure random string
+   - `JWT_REFRESH_SECRET` — generate a secure random string
+   - `NODE_ENV` — `production`
+   - `CLIENT_URL` — your Vercel frontend URL (for CORS)
+5. Deploy. Render will provide a public URL like `https://your-app.onrender.com`
+
+### Frontend — Vercel
+
+1. Create a new project on Vercel
+2. Connect your GitHub repository
+3. Configure:
+   - **Root Directory:** `Frontend`
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+4. Add environment variable:
+   - `VITE_API_URL` — your Render backend URL (e.g., `https://your-app.onrender.com/api/v1`)
+5. Deploy. Vercel will provide a public URL like `https://your-app.vercel.app`
+
+### Post-Deployment Checklist
+
+- [ ] Backend health check returns `{ success: true }`
+- [ ] Frontend loads without console errors
+- [ ] CORS allows frontend origin
+- [ ] Signup creates a new user in MongoDB
+- [ ] Login returns access and refresh tokens
+- [ ] Dashboard loads user data
+- [ ] Logout invalidates refresh token
+- [ ] Protected routes redirect unauthenticated users
+
+---
+
 ## Design Decisions
 
 ### Layered Architecture

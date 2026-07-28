@@ -1,7 +1,7 @@
 # JWT Authentication Backend
 
 A production-inspired authentication backend built with **Node.js**, **Express**, **TypeScript**, **MongoDB**, and **JWT**.  
-Designed to demonstrate scalable backend architecture, secure auth flows, and clean code practices suitable for an internship or production environment.
+Designed to demonstrate scalable backend architecture, secure auth flows, and clean code practices suitable for production environment.
 
 ---
 
